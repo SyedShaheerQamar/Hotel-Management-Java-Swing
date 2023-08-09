@@ -19,6 +19,9 @@ public class SqlQueryConstant {
     public static final String DELTE_HOTEL_BY_ID =
             "delete from hotel where id = ?";
 
+    public static final String GET_EMAIL_AND_PASS =
+            "select * from hotel_admin where email = ? and pass = ?";
+
     // hotel
     public static final String INSERT_INTO_HOTEL =
             "insert into hotel (hotel_name, location, url, admin_id)" +

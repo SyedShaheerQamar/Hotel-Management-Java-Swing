@@ -74,6 +74,20 @@ public class Hotel_AdminDAO extends BaseDAO implements iCrud<Hotel_Admin> {
         }
     }
 
+    public Hotel_Admin getEmailAndPassword(String em, String pas){
+        try{
+            PreparedStatement ps = conn.prepareStatement(GET_EMAIL_AND_PASS);
+            ps.setString(1, em);
+            ps.setString(2, pas);
+
+            ResultSet rs = ps.executeQuery();
+            return hotel_admin_mapper.resultSetTObject(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void deleteById(Long id) {
         try{

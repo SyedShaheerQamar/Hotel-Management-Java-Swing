@@ -1,12 +1,16 @@
 package org.hotel;
 
+import org.hotel.DAO.HotelDAO;
 import org.hotel.DAO.Hotel_AdminDAO;
 import org.hotel.Domain.Hotel_Admin;
 
 public class Main {
     public static void main(String[] args) {
 
-        Hotel_AdminDAO hotelAdminDAO = new Hotel_AdminDAO();
+        HotelDAO hotelDAO = new HotelDAO();
+        hotelDAO.getAll().forEach(System.out::println);
+
+//        Hotel_AdminDAO hotelAdminDAO = new Hotel_AdminDAO();
 
 //        hotelAdminDAO.getAll().forEach(System.out::println);
 

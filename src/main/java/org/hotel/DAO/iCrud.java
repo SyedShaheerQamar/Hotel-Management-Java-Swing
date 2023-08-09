@@ -2,7 +2,7 @@ package org.hotel.DAO;
 
 import java.util.List;
 
-public interface iCurd <T>{
+public interface iCrud<T>{
 
     void insert(T obj);
     List<T> getAll();

@@ -30,7 +30,6 @@ public class Hotel_AdminDAO extends BaseDAO implements iCrud<Hotel_Admin> {
         catch (SQLException e){
             throw new RuntimeException(e);
         }
-
     }
 
     @Override

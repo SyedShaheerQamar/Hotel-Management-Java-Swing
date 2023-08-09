@@ -1,7 +1,7 @@
 package org.hotel.DAO;
 
-import org.hotel.Domain.Hotel;
-import org.hotel.Mapper.Hotel_Mapper;
+import org.hotel.Domain.Customer;
+import org.hotel.Mapper.CustomerMapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,21 +11,19 @@ import java.util.List;
 
 import static org.hotel.DAO.SqlQueryConstant.*;
 
-public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
+public class CustomerDAO extends BaseDAO implements iCrud<Customer>{
 
-    private final Hotel_Mapper hotelMapper = new Hotel_Mapper();
+    private final CustomerMapper customerMapper = new CustomerMapper();
 
     @Override
-    public void insert(Hotel obj) {
-        try{
-            PreparedStatement ps = conn.prepareStatement(INSERT_INTO_HOTEL);
-            ps.setString(1, obj.getHotel_name());
-            ps.setString(2, obj.getLocation());
-            ps.setString(3, obj.getUrl());
-            ps.setInt(4, obj.getAdmin_id());
+    public void insert(Customer obj) {
+        try {
+            PreparedStatement ps = conn.prepareStatement(INSERT_CUSTOMER);
+            ps.setString(1, obj.getName());
+            ps.setString(2, obj.getPhone());
+            ps.setString(3, obj.getCnic());
             ps.executeUpdate();
 
-            System.out.println("Inserted!!!");
         }
         catch (SQLException e){
             throw new RuntimeException(e);
@@ -33,26 +31,25 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     }
 
     @Override
-    public List<Hotel> getAll() {
+    public List<Customer> getAll() {
         try{
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(GET_ALL_HOTEL);
+            ResultSet rs = stmt.executeQuery(GET_ALL_CUSTOMER);
+            return customerMapper.resultSetToList(rs);
 
-            return hotelMapper.resultSetToList(rs);
-        }
-        catch (SQLException e){
+        }catch (SQLException e){
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Hotel getById(Long id) {
+    public Customer getById(Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(GET_HOTEL_BY_ID);
+            PreparedStatement ps = conn.prepareStatement(GET_CUSTOMER_BY_ID);
             ps.setInt(1, id.intValue());
 
             ResultSet rs = ps.executeQuery();
-            return hotelMapper.resultSetTObject(rs);
+            return customerMapper.resultSetTObject(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);
@@ -60,10 +57,10 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     }
 
     @Override
-    public void update(Hotel obj, Long id) {
+    public void update(Customer obj, Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(UPDATE_HOTEL);
-            ps.setString(1, obj.getLocation());
+            PreparedStatement ps = conn.prepareStatement(UPDATE_CUSTOMER);
+            ps.setString(1, obj.getName());
             ps.setInt(2, id.intValue());
             ps.executeUpdate();
 
@@ -77,7 +74,7 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     @Override
     public void deleteById(Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(DELTE_HOTEL_BY_ID);
+            PreparedStatement ps = conn.prepareStatement(DELETE_CUSTOMER);
             ps.setInt(1, id.intValue());
             ps.executeUpdate();
 

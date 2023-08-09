@@ -1,7 +1,7 @@
 package org.hotel.DAO;
 
-import org.hotel.Domain.Hotel;
-import org.hotel.Mapper.Hotel_Mapper;
+import org.hotel.Domain.Booking;
+import org.hotel.Mapper.BookingMapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,18 +11,20 @@ import java.util.List;
 
 import static org.hotel.DAO.SqlQueryConstant.*;
 
-public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
+public class BookingDAO extends BaseDAO implements iCrud<Booking>{
 
-    private final Hotel_Mapper hotelMapper = new Hotel_Mapper();
+    private final BookingMapper bookingMapper = new BookingMapper();
 
     @Override
-    public void insert(Hotel obj) {
+    public void insert(Booking obj) {
         try{
-            PreparedStatement ps = conn.prepareStatement(INSERT_INTO_HOTEL);
-            ps.setString(1, obj.getHotel_name());
-            ps.setString(2, obj.getLocation());
-            ps.setString(3, obj.getUrl());
-            ps.setInt(4, obj.getAdmin_id());
+            PreparedStatement ps = conn.prepareStatement(INSERT_INTO_BOOKING);
+            ps.setInt(1, obj.getHotel_id());
+            ps.setInt(2, obj.getRoom_id());
+            ps.setInt(3, obj.getCustomer_id());
+            ps.setInt(4, obj.getPrice());
+            ps.setString(5, obj.getArrival_date());
+            ps.setString(6, obj.getDeparture_date());
             ps.executeUpdate();
 
             System.out.println("Inserted!!!");
@@ -33,12 +35,12 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     }
 
     @Override
-    public List<Hotel> getAll() {
+    public List<Booking> getAll() {
         try{
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(GET_ALL_HOTEL);
+            ResultSet rs = stmt.executeQuery(GET_ALL_BOOKING);
 
-            return hotelMapper.resultSetToList(rs);
+            return bookingMapper.resultSetToList(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);
@@ -46,13 +48,13 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     }
 
     @Override
-    public Hotel getById(Long id) {
+    public Booking getById(Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(GET_HOTEL_BY_ID);
+            PreparedStatement ps = conn.prepareStatement(GET_BOOKING_BY_ID);
             ps.setInt(1, id.intValue());
 
             ResultSet rs = ps.executeQuery();
-            return hotelMapper.resultSetTObject(rs);
+            return bookingMapper.resultSetTObject(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);
@@ -60,10 +62,10 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     }
 
     @Override
-    public void update(Hotel obj, Long id) {
+    public void update(Booking obj, Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(UPDATE_HOTEL);
-            ps.setString(1, obj.getLocation());
+            PreparedStatement ps = conn.prepareStatement(UPDATE_HOTEL_ADMIN);
+            ps.setInt(1, obj.getPrice());
             ps.setInt(2, id.intValue());
             ps.executeUpdate();
 
@@ -77,7 +79,7 @@ public class HotelDAO extends BaseDAO implements iCrud<Hotel> {
     @Override
     public void deleteById(Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(DELTE_HOTEL_BY_ID);
+            PreparedStatement ps = conn.prepareStatement(DELETE_BOOKING);
             ps.setInt(1, id.intValue());
             ps.executeUpdate();
 

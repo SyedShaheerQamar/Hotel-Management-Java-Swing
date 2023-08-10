@@ -64,7 +64,7 @@ public class BookingDAO extends BaseDAO implements iCrud<Booking>{
     @Override
     public void update(Booking obj, Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(UPDATE_HOTEL_ADMIN);
+            PreparedStatement ps = conn.prepareStatement(UPDATE_BOOKING);
             ps.setInt(1, obj.getPrice());
             ps.setInt(2, id.intValue());
             ps.executeUpdate();

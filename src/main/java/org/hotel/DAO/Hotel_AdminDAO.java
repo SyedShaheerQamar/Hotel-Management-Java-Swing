@@ -91,11 +91,40 @@ public class Hotel_AdminDAO extends BaseDAO implements iCrud<Hotel_Admin> {
     @Override
     public void deleteById(Long id) {
         try{
-            PreparedStatement ps = conn.prepareStatement(DELTE_HOTEL_BY_ID);
+            PreparedStatement ps = conn.prepareStatement(DELTE_HOTEL_ADMIN_BY_ID);
             ps.setInt(1, id.intValue());
             ps.executeUpdate();
 
             System.out.println("Deleted!!!");
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Hotel_Admin> searchByName(String name){
+        try{
+            PreparedStatement ps = conn.prepareStatement(
+                    "select * from hotel_admin where first_name like '%"+name+"%';");
+
+            ResultSet rs = ps.executeQuery();
+            return hotel_admin_mapper.resultSetToList(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAll(Hotel_Admin obj,Integer id){
+        try{
+            PreparedStatement ps = conn.prepareStatement(UPDATE_ALL_VALUES_HOTEL_ADMIN);
+            ps.setString(1, obj.getFirst_name());
+            ps.setString(2, obj.getLast_name());
+            ps.setString(3, obj.getEmail());
+            ps.setString(4, obj.getPass());
+            ps.setInt(5, id);
+            ps.executeUpdate();
+
         }
         catch (SQLException e){
             throw new RuntimeException(e);

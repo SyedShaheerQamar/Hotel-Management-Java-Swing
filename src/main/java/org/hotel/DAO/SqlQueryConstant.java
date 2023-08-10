@@ -16,11 +16,14 @@ public class SqlQueryConstant {
     public static final String UPDATE_HOTEL_ADMIN =
             "update hotel_admin set email = ? where id = ?";
 
-    public static final String DELTE_HOTEL_BY_ID =
-            "delete from hotel where id = ?";
+    public static final String DELTE_HOTEL_ADMIN_BY_ID =
+            "delete from hotel_admin where id = ?";
 
     public static final String GET_EMAIL_AND_PASS =
             "select * from hotel_admin where email = ? and pass = ?";
+
+    public static final String UPDATE_ALL_VALUES_HOTEL_ADMIN =
+            "update hotel_admin set first_name = ?, last_name = ?, email = ?, pass = ? where id = ?";
 
     // hotel
     public static final String INSERT_INTO_HOTEL =
@@ -35,6 +38,9 @@ public class SqlQueryConstant {
 
     public static final String UPDATE_HOTEL =
             "update hotel_admin set location = ? where id = ?";
+
+    public static final String DELTE_HOTEL_BY_ID =
+            "delete from hotel where id = ?";
 
     // room
     public static final String INSERT_INTO_ROOM =

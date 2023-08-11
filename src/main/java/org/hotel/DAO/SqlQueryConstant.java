@@ -37,14 +37,18 @@ public class SqlQueryConstant {
             "select * from hotel where id = ?";
 
     public static final String UPDATE_HOTEL =
-            "update hotel_admin set location = ? where id = ?";
+            "update hotel set location = ? where id = ?";
 
     public static final String DELTE_HOTEL_BY_ID =
             "delete from hotel where id = ?";
 
+    public static final String UPDATE_ALL_VALUES_HOTEL =
+            "update hotel set hotel_name = ?, location = ?, url = ?, admin_id = ? where id = ?;";
+
+
     // room
     public static final String INSERT_INTO_ROOM =
-            "insert into room (room_floor, category, url, room_price, hid)" +
+            "insert into room (room_floor, category, url, room_price, h_id)" +
                     "values (?, ?, ?, ?, ?)";
 
     public static final String GET_ALL_ROOM =
@@ -58,6 +62,10 @@ public class SqlQueryConstant {
 
     public static final String DELTE_ROOM_BY_ID =
             "delete from room where id = ?";
+
+    public static final String UPDATE_ALL_VALUES_ROOM =
+            "update room set room_floor = ?, category = ?, url = ?, room_price = ?, h_id = ? where id = ?;";
+
 
     // customer
     public static final String GET_ALL_CUSTOMER =

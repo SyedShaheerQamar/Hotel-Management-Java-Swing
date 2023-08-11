@@ -21,6 +21,21 @@ public class HomeUI {
         customerBtn.setPreferredSize(new Dimension(200, 100));
         bookingBtn.setPreferredSize(new Dimension(200, 100));
 
+        hotelAdminBtn.addActionListener(b->{
+            frame.dispose();
+            new HotelAdminUI();
+        });
+
+        hotelBtn.addActionListener(b->{
+            frame.dispose();
+            new HotelUI();
+        });
+
+        roomBtn.addActionListener(b->{
+            frame.dispose();
+            new RoomUI();
+        });
+
         frame.add(hotelAdminBtn);
         frame.add(hotelBtn);
         frame.add(roomBtn);

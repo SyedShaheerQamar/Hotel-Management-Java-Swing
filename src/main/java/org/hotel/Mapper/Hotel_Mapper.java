@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Hotel_Mapper implements iMapper<Hotel>{
 
+    private static final String ID = "id";
     private static final String HOTEL_NAME = "hotel_name";
     private static final String LOCATION = "location";
     private static final String URL = "url";
@@ -20,6 +21,7 @@ public class Hotel_Mapper implements iMapper<Hotel>{
 
         while (rs.next()){
             Hotel hotel = Hotel.builder()
+                    .id(rs.getInt(ID))
                     .hotel_name(rs.getString(HOTEL_NAME))
                     .location(rs.getString(LOCATION))
                     .url(rs.getString(URL))
@@ -37,6 +39,7 @@ public class Hotel_Mapper implements iMapper<Hotel>{
 
         if(rs.next()){
             return Hotel.builder()
+                    .id(rs.getInt(ID))
                     .hotel_name(rs.getString(HOTEL_NAME))
                     .location(rs.getString(LOCATION))
                     .url(rs.getString(URL))

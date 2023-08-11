@@ -1,5 +1,6 @@
 package org.hotel.DAO;
 
+import org.hotel.Domain.Hotel;
 import org.hotel.Domain.Room;
 import org.hotel.Mapper.RoomMapper;
 
@@ -83,6 +84,36 @@ public class RoomDAO extends BaseDAO implements iCrud<Room>{
             ps.executeUpdate();
 
             System.out.println("Deleted!!!");
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAllValues(Room obj, Integer id){
+        try{
+            PreparedStatement ps = conn.prepareStatement(UPDATE_ALL_VALUES_ROOM);
+            ps.setString(1, obj.getRoom_floor());
+            ps.setString(2, obj.getCategory());
+            ps.setString(3, obj.getUrl());
+            ps.setInt(4, obj.getRoom_price());
+            ps.setInt(5, obj.getHotel_id());
+            ps.setInt(6, id);
+            ps.executeUpdate();
+
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Room> searchByName(String name){
+        try{
+            PreparedStatement ps = conn.prepareStatement(
+                    "select * from room where category like '%"+name+"%';");
+
+            ResultSet rs = ps.executeQuery();
+            return roomMapper.resultSetToList(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);

@@ -14,6 +14,8 @@ public class RoomMapper implements iMapper<Room>{
     private static final String CATEGORY = "category";
     private static final String URL = "url";
     private static final String ROOM_PRICE = "room_price";
+    private static final String HOTEL_ID = "h_id";
+
     @Override
     public List<Room> resultSetToList(ResultSet rs) throws SQLException {
         List<Room> roomList = new ArrayList<>();
@@ -25,6 +27,7 @@ public class RoomMapper implements iMapper<Room>{
                     .category(rs.getString(CATEGORY))
                     .url(rs.getString(URL))
                     .room_price(rs.getInt(ROOM_PRICE))
+                    .hotel_id(rs.getInt(HOTEL_ID))
                     .build();
 
             roomList.add(room);
@@ -43,6 +46,7 @@ public class RoomMapper implements iMapper<Room>{
                     .category(rs.getString(CATEGORY))
                     .url(rs.getString(URL))
                     .room_price(rs.getInt(ROOM_PRICE))
+                    .hotel_id(rs.getInt(HOTEL_ID))
                     .build();
         }
 

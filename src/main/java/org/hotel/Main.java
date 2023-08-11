@@ -4,15 +4,14 @@ import org.hotel.DAO.HotelDAO;
 import org.hotel.DAO.Hotel_AdminDAO;
 import org.hotel.Domain.Hotel_Admin;
 
-import org.hotel.UI.AddHotelAdminUI;
-import org.hotel.UI.HotelAdminUI;
-import org.hotel.UI.LoginUI;
+import org.hotel.UI.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        new AddHotelAdminUI();
-
+        new HomeUI();
+//        new HotelUI();
+//        new LoginUI();
 
 //        HotelDAO hotelDAO = new HotelDAO();
 //        hotelDAO.getAll().forEach(System.out::println);

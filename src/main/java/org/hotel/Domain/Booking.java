@@ -18,5 +18,6 @@ public class Booking {
     private Integer price;
     private String arrival_date;
     private String departure_date;
+    private String booking_status;
 
 }

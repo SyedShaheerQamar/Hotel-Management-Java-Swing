@@ -66,12 +66,14 @@ public class SqlQueryConstant {
     public static final String UPDATE_ALL_VALUES_ROOM =
             "update room set room_floor = ?, category = ?, url = ?, room_price = ?, h_id = ? where id = ?;";
 
+    public static final String GET_ROOM_BY_HOTEL_ID =
+            "select * from room where h_id = ?;";
 
     // customer
     public static final String GET_ALL_CUSTOMER =
             "select * from customer";
     public static final String INSERT_CUSTOMER =
-            "insert into customer (c_name, phone_number, cnic)" +
+            "insert into customer (c_name, phone_numebr, cnic)" +
                     "values (?, ?, ?)";
     public static final String GET_CUSTOMER_BY_ID =
             "select * from customer where id = ?";
@@ -82,20 +84,26 @@ public class SqlQueryConstant {
     public static final String DELETE_CUSTOMER =
             "delete from customer where id = ?";
 
+    public static final String UPDATE_ALL_VALUES_CUSTOMER =
+            "update customer set c_name = ?, phone_numebr = ?, cnic = ? where id = ?;";
+
     // booking
     public static final String GET_ALL_BOOKING =
             "select * from booking";
     public static final String INSERT_INTO_BOOKING =
-            "insert into booing (h_id, r_id, c_id, price, arrival_date, departure_date)" +
-                    "values (?, ?, ?, ?, ?, ?)";
+            "insert into booking (h_id, r_id, c_id, price, arrival_date, departure_date, booking_status)" +
+                    "values (?, ?, ?, ?, ?, ?, ?)";
     public static final String GET_BOOKING_BY_ID =
             "select * from booking where id = ?";
 
     public static final String UPDATE_BOOKING =
-            "update booking set price = ? where id = ?";
+            "update booking set booking_status = ? where id = ?";
 
     public static final String DELETE_BOOKING =
             "delete from booking where id = ?";
+
+    public static final String UPDATE_ALL_VALUES_BOOKING =
+            "update booking set h_id = ?, r_id = ?, c_id = ?, price = ?, arrival_date = ?, departure_date = ?, booking_status = ?  where id = ?;";
 
 
 }

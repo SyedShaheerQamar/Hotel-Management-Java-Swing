@@ -1,17 +1,18 @@
 package org.hotel;
 
-import org.hotel.DAO.HotelDAO;
-import org.hotel.DAO.Hotel_AdminDAO;
-import org.hotel.Domain.Hotel_Admin;
+import org.hotel.DAO.BookingDAO;
+import org.hotel.Domain.Booking;
+import org.hotel.UI.AddBookingUI;
 
-import org.hotel.UI.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        new HomeUI();
-//        new HotelUI();
-//        new LoginUI();
+
+
+        new AddBookingUI();
 
 //        HotelDAO hotelDAO = new HotelDAO();
 //        hotelDAO.getAll().forEach(System.out::println);

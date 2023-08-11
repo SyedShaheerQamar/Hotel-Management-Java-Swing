@@ -16,6 +16,7 @@ public class BookingMapper implements iMapper<Booking>{
     private static final String PRICE = "price";
     private static final String ARRIVAL_DATE = "arrival_date";
     private static final String DEPARTURE_DATE = "departure_date";
+    private static final String BOOKING_STATUS = "booking_status";
 
     @Override
     public List<Booking> resultSetToList(ResultSet rs) throws SQLException {
@@ -30,6 +31,7 @@ public class BookingMapper implements iMapper<Booking>{
                     .price(rs.getInt(PRICE))
                     .arrival_date(rs.getString(ARRIVAL_DATE))
                     .departure_date(rs.getString(DEPARTURE_DATE))
+                    .booking_status(rs.getString(BOOKING_STATUS))
                     .build();
 
             bookingList.add(book);
@@ -50,6 +52,7 @@ public class BookingMapper implements iMapper<Booking>{
                     .price(rs.getInt(PRICE))
                     .arrival_date(rs.getString(ARRIVAL_DATE))
                     .departure_date(rs.getString(DEPARTURE_DATE))
+                    .booking_status(rs.getString(BOOKING_STATUS))
                     .build();
         }
 

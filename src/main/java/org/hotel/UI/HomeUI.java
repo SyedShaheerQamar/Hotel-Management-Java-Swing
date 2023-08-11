@@ -36,6 +36,16 @@ public class HomeUI {
             new RoomUI();
         });
 
+        customerBtn.addActionListener(b->{
+            frame.dispose();
+            new CustomerUI();
+        });
+
+        bookingBtn.addActionListener(b->{
+            frame.dispose();
+            new BookingUI();
+        });
+
         frame.add(hotelAdminBtn);
         frame.add(hotelBtn);
         frame.add(roomBtn);

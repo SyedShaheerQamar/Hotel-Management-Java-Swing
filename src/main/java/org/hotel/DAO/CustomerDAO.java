@@ -1,6 +1,7 @@
 package org.hotel.DAO;
 
 import org.hotel.Domain.Customer;
+import org.hotel.Domain.Hotel;
 import org.hotel.Mapper.CustomerMapper;
 
 import java.sql.PreparedStatement;
@@ -79,6 +80,34 @@ public class CustomerDAO extends BaseDAO implements iCrud<Customer>{
             ps.executeUpdate();
 
             System.out.println("Deleted!!!");
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAllValues(Customer obj, Integer id){
+        try{
+            PreparedStatement ps = conn.prepareStatement(UPDATE_ALL_VALUES_CUSTOMER);
+            ps.setString(1, obj.getName());
+            ps.setString(2, obj.getPhone());
+            ps.setString(3, obj.getCnic());
+            ps.setInt(4, id);
+            ps.executeUpdate();
+
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Customer> searchByName(String name){
+        try{
+            PreparedStatement ps = conn.prepareStatement(
+                    "select * from customer where c_name like '%"+name+"%';");
+
+            ResultSet rs = ps.executeQuery();
+            return customerMapper.resultSetToList(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);

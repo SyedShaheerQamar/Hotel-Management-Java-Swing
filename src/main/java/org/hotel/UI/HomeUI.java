@@ -14,12 +14,14 @@ public class HomeUI {
         JButton roomBtn = new JButton("ROOM");
         JButton customerBtn = new JButton("CUSTOMER");
         JButton bookingBtn = new JButton("BOOKING");
+        JButton reportBtn = new JButton("REPORT");
 
         hotelAdminBtn.setPreferredSize(new Dimension(200, 100));
         hotelBtn.setPreferredSize(new Dimension(200, 100));
         roomBtn.setPreferredSize(new Dimension(200, 100));
         customerBtn.setPreferredSize(new Dimension(200, 100));
         bookingBtn.setPreferredSize(new Dimension(200, 100));
+        reportBtn.setPreferredSize(new Dimension(200, 100));
 
         hotelAdminBtn.addActionListener(b->{
             frame.dispose();
@@ -46,11 +48,17 @@ public class HomeUI {
             new BookingUI();
         });
 
+        reportBtn.addActionListener(b->{
+            frame.dispose();
+            new ReportUI();
+        });
+
         frame.add(hotelAdminBtn);
         frame.add(hotelBtn);
         frame.add(roomBtn);
         frame.add(customerBtn);
         frame.add(bookingBtn);
+        frame.add(reportBtn);
 
         frame.setSize(800, 620);
         frame.setVisible(true);

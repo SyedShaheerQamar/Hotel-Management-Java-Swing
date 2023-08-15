@@ -4,17 +4,36 @@ import org.hotel.DAO.BookingDAO;
 import org.hotel.DAO.CustomerDAO;
 import org.hotel.DAO.HotelDAO;
 import org.hotel.DAO.RoomDAO;
-import org.hotel.Domain.Booking;
-import org.hotel.Domain.Customer;
-import org.hotel.Domain.Hotel;
-import org.hotel.Domain.Room;
+import org.hotel.Domain.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookingService {
 
     BookingDAO dao = new BookingDAO();
+
+    public String[][] getAvailableRoom(Integer id, String a_date, String d_Date){
+        RoomDAO roomDAO = new RoomDAO();
+        List<Room> roomList = roomDAO.getAvailableRoom(id, a_date, d_Date);
+
+        return convertValuesIntoJTableForRoom(roomList, 6);
+    }
+
+    public String getTotalPrice(String adate, String ddate, Integer h_id){
+        List<Bill> bookingList = dao.getTotalPrice(h_id);
+
+        Integer price = bookingList.get(0).getPrice();
+
+        return "The  total  bill  of  Hotel  ID  : "+h_id+"  is  "+price;
+    }
+
+    public String[][] MonthlyReportBooking(String adate, String ddate, Integer id){
+        List<Booking> bookingList = dao.getMonthlyReportBooking(adate, ddate, id);
+
+        return convertValuesIntoJTable(bookingList, 8);
+    }
 
     public Boolean updateValueOfBooking(Integer id){
         Booking booking = dao.getById(Long.valueOf(id));
@@ -92,7 +111,7 @@ public class BookingService {
 
     public String[][] getAllValuesOfBooking(){
 
-        List<Booking> bookingList = dao.getAll();
+        List<Booking> bookingList = dao.getAllBooking();
         return convertValuesIntoJTable(bookingList, 8);
     }
 
@@ -130,6 +149,22 @@ public class BookingService {
             data[i][5] = bookingList.get(i).getArrival_date();
             data[i][6] = bookingList.get(i).getDeparture_date();
             data[i][7] = bookingList.get(i).getBooking_status();
+        }
+
+        return data;
+    }
+
+    private String[][] convertValuesIntoJTableForRoom(List<Room> roomList, int columnSize) {
+
+        String[][] data = new String[roomList.size()][columnSize];
+
+        for(int i=0; i<roomList.size(); i++){
+            data[i][0] = String.valueOf(roomList.get(i).getId());
+            data[i][1] = roomList.get(i).getRoom_floor();
+            data[i][2] = roomList.get(i).getCategory();
+            data[i][3] = roomList.get(i).getUrl();
+            data[i][4] = String.valueOf(roomList.get(i).getRoom_price());
+            data[i][5] = String.valueOf(roomList.get(i).getHotel_id());
         }
 
         return data;

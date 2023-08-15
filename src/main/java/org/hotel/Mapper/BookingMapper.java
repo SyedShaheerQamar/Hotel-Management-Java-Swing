@@ -1,5 +1,6 @@
 package org.hotel.Mapper;
 
+import org.hotel.Domain.Bill;
 import org.hotel.Domain.Booking;
 
 import java.sql.ResultSet;
@@ -57,5 +58,19 @@ public class BookingMapper implements iMapper<Booking>{
         }
 
         return null;
+    }
+
+    public List<Bill> resultSetToInteger(ResultSet rs) throws SQLException {
+        List<Bill> bills = new ArrayList<>();
+
+        while (rs.next()){
+            Bill bill = Bill.builder()
+                    .price(rs.getInt("total_bill"))
+                    .build();
+
+            bills.add(bill);
+        }
+
+        return bills;
     }
 }

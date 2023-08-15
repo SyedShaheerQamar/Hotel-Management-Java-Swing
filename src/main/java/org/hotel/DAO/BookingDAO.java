@@ -1,5 +1,6 @@
 package org.hotel.DAO;
 
+import org.hotel.Domain.Bill;
 import org.hotel.Domain.Booking;
 import org.hotel.Domain.Customer;
 import org.hotel.Mapper.BookingMapper;
@@ -42,6 +43,17 @@ public class BookingDAO extends BaseDAO implements iCrud<Booking>{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(GET_ALL_BOOKING);
 
+            return bookingMapper.resultSetToList(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Booking> getAllBooking(){
+        try{
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(GET_ALL_ACTIVE_BOOKING);
             return bookingMapper.resultSetToList(rs);
         }
         catch (SQLException e){
@@ -118,6 +130,31 @@ public class BookingDAO extends BaseDAO implements iCrud<Booking>{
 
             ResultSet rs = ps.executeQuery();
             return bookingMapper.resultSetToList(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Booking> getMonthlyReportBooking(String adate, String ddate, Integer id){
+        try{
+            PreparedStatement ps = conn.prepareStatement("select * from booking where arrival_date between '"+adate+"' and '"+ddate+"' and h_id = "+id+";");
+
+            ResultSet rs = ps.executeQuery();
+            return bookingMapper.resultSetToList(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Bill> getTotalPrice(Integer id){
+        try{
+            PreparedStatement ps = conn.prepareStatement(GET_MONTHLY_PRICE);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            return bookingMapper.resultSetToInteger(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);

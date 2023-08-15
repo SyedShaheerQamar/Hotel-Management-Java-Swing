@@ -69,6 +69,9 @@ public class SqlQueryConstant {
     public static final String GET_ROOM_BY_HOTEL_ID =
             "select * from room where h_id = ?;";
 
+    public static final String GET_AVAILABLE_ROOM =
+            "select * from room where h_id = ? and id not in (select b.r_id from room r inner join booking b on r.id = b.r_id where arrival_date between '?' and '?' and departure_date between '?' and '?');";
+
     // customer
     public static final String GET_ALL_CUSTOMER =
             "select * from customer";
@@ -105,5 +108,12 @@ public class SqlQueryConstant {
     public static final String UPDATE_ALL_VALUES_BOOKING =
             "update booking set h_id = ?, r_id = ?, c_id = ?, price = ?, arrival_date = ?, departure_date = ?, booking_status = ?  where id = ?;";
 
+    public static final String GET_ALL_ACTIVE_BOOKING =
+            "select * from booking where booking_status != 'inactive';";
 
+    public static final String MONTHLY_REPORT_BOOKING =
+            "select * from booking where arrival_date between '?' and '?';";
+
+    public static final String GET_MONTHLY_PRICE =
+            "select sum(b.price*datediff(departure_date, arrival_date)) as total_bill from booking b where h_id = ?;";
 }

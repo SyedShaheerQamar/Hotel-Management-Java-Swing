@@ -1,8 +1,10 @@
 package org.hotel;
 
+import com.itextpdf.text.Document;
 import org.hotel.DAO.BookingDAO;
 import org.hotel.Domain.Booking;
-import org.hotel.UI.AddBookingUI;
+import org.hotel.Domain.Room;
+import org.hotel.UI.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-
-        new AddBookingUI();
+        new MonthlyReportUI();
 
 //        HotelDAO hotelDAO = new HotelDAO();
 //        hotelDAO.getAll().forEach(System.out::println);
@@ -21,7 +22,7 @@ public class Main {
 
 //        hotelAdminDAO.getAll().forEach(System.out::println);
 
-//        System.out.println(hotelAdminDAO.getById(3L));
+//        System.ou t.println(hotelAdminDAO.getById(3L));
 
 //        Hotel_Admin ha = Hotel_Admin.builder()
 //                .first_name("Shaheer")

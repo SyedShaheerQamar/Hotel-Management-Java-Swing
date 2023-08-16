@@ -1,6 +1,7 @@
 package org.hotel;
 
 import com.itextpdf.text.Document;
+import com.mysql.cj.log.Log;
 import org.hotel.DAO.BookingDAO;
 import org.hotel.Domain.Booking;
 import org.hotel.Domain.Room;

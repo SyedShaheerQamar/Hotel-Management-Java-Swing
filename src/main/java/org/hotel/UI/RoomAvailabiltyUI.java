@@ -120,11 +120,10 @@ public class RoomAvailabiltyUI {
 
         pdfBtn.addActionListener(b->{
             if (jTable.getRowCount() <= 0){
-                JOptionPane.showMessageDialog(frame, "No report available!!!");
+                JOptionPane.showMessageDialog(frame, "No room available!!!");
             }
             else {
                 count += 1;
-                System.out.println(count);
                 FILE = "D:/Java/RoomAvailable" + count + ".pdf";
                 try {
                     Document doc = new Document();

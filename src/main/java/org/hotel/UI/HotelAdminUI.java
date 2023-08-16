@@ -1,5 +1,6 @@
 package org.hotel.UI;
 
+import jdk.nashorn.internal.scripts.JO;
 import org.hotel.Service.HotelAdminService;
 
 import javax.swing.*;
@@ -96,10 +97,15 @@ public class HotelAdminUI {
             }
             else {
                 String id = (String) jTable.getValueAt(val, 0);
-                hotelAdminService.deleteById(id);
-                JOptionPane.showMessageDialog(frame, "Deleted!!!");
-                frame.dispose();
-                new HotelAdminUI();
+                if(!hotelAdminService.checkId(Integer.valueOf(id))){
+                    hotelAdminService.deleteById(id);
+                    JOptionPane.showMessageDialog(frame, "Deleted!!!");
+                    frame.dispose();
+                    new HotelAdminUI();
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "Cannot be deleted!!! Present in another table");
+                }
             }
         });
 

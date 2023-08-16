@@ -116,4 +116,5 @@ public class SqlQueryConstant {
 
     public static final String GET_MONTHLY_PRICE =
             "select sum(b.price*datediff(departure_date, arrival_date)) as total_bill from booking b where h_id = ?;";
+
 }

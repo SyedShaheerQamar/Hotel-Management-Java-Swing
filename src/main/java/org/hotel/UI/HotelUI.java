@@ -96,10 +96,15 @@ public class HotelUI {
             }
             else {
                 String id = (String) jTable.getValueAt(val, 0);
-                hotelService.deleteById(id);
-                JOptionPane.showMessageDialog(frame, "Deleted!!!");
-                frame.dispose();
-                new HotelUI();
+                if(hotelService.checkId(Integer.valueOf(id))) {
+                    hotelService.deleteById(id);
+                    JOptionPane.showMessageDialog(frame, "Deleted!!!");
+                    frame.dispose();
+                    new HotelUI();
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame, "Cannot be deleted!!! Present in another table");
+                }
             }
         });
 

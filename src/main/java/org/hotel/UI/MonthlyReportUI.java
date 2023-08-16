@@ -126,11 +126,11 @@ public class MonthlyReportUI {
 
         pdfBtn.addActionListener(b->{
             if (jTable.getRowCount() <= 0){
+                reportlb.setText("");
                 JOptionPane.showMessageDialog(frame, "No report available!!!");
             }
             else {
                 count += 1;
-                System.out.println(count);
                 FILE = "D:/Java/MonthlyReport" + count + ".pdf";
                 String result = reportlb.getText();
                 try {
@@ -202,16 +202,14 @@ public class MonthlyReportUI {
         // Second parameter is the number of the chapter
         Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
+        LocalDate now = LocalDate.now();
+        Paragraph Para = new Paragraph(String.valueOf(now));
+
+
         Paragraph nePara = new Paragraph();
         addEmptyLine(nePara, 3);
 
         PdfPTable table = new PdfPTable(4);
-
-
-        // t.setBorderColor(BaseColor.GRAY);
-        // t.setPadding(4);
-        // t.setSpacing(4);
-        // t.setBorderWidth(1);
 
         PdfPCell c1 = new PdfPCell(new Phrase("H_ID"));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -237,6 +235,7 @@ public class MonthlyReportUI {
             table.addCell((String) jTable.getValueAt(i, 4));
         }
 
+        catPart.add(Para);
         catPart.add(nePara);
         catPart.add(table);
         catPart.add(nePara);

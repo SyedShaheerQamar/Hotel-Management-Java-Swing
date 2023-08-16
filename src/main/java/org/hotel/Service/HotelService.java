@@ -2,8 +2,10 @@ package org.hotel.Service;
 
 import org.hotel.DAO.HotelDAO;
 import org.hotel.DAO.Hotel_AdminDAO;
+import org.hotel.DAO.RoomDAO;
 import org.hotel.Domain.Hotel;
 import org.hotel.Domain.Hotel_Admin;
+import org.hotel.Domain.Room;
 
 import java.util.List;
 
@@ -68,5 +70,18 @@ public class HotelService {
         }
 
         return data;
+    }
+
+    public Boolean checkId(Integer id){
+        RoomDAO roomDAO = new RoomDAO();
+        List<Room> roomList = roomDAO.getAll();
+
+        for(int i=0; i<roomList.size(); i++){
+            if (id.equals(roomList.get(i).getHotel_id())){
+                return Boolean.TRUE;
+            }
+        }
+
+        return Boolean.FALSE;
     }
 }

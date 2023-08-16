@@ -117,4 +117,7 @@ public class SqlQueryConstant {
     public static final String GET_MONTHLY_PRICE =
             "select sum(b.price*datediff(departure_date, arrival_date)) as total_bill from booking b where h_id = ?;";
 
+    public static final String GET_ALL_NAMES =
+            "select h.hotel_name, r.category, c.c_name from booking b inner join customer c on b.c_id = c.id inner join hotel h on b.h_id = h.id inner join room r on b.r_id = r.id where b.h_id = ? and b.c_id = ? and b.r_id = ?;";
+
 }

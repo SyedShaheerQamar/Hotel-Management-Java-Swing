@@ -135,4 +135,17 @@ public class RoomDAO extends BaseDAO implements iCrud<Room>{
         }
     }
 
+    public List<Room> roomAvailability(Integer id, String adate, String ddate){
+        try{
+            PreparedStatement ps = conn.prepareStatement(
+                    "select * from room r where r.h_id = "+id+" and r.id not in (select b.r_id from booking b where b.arrival_date between '"+adate+"' and '"+ddate+"' or b.departure_date between '"+adate+"' and '"+ddate+"');"
+            );
+            ResultSet rs = ps.executeQuery();
+            return roomMapper.resultSetToList(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }

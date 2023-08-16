@@ -95,7 +95,8 @@ public class MonthlyReportUI {
 
         generateBtn.addActionListener(b->{
             String h = (String) hotelBox.getSelectedItem();
-            Integer h_id = Character.getNumericValue(h.charAt(0));
+            String[] h_value = h.split(",");
+            Integer h_id = Integer.valueOf(h_value[0]);
 
             LocalDate arr_date = LocalDate.of(model.getYear(), (model.getMonth()+1), model.getDay());
             LocalDate dep_date = LocalDate.of(d_model.getYear(), (d_model.getMonth()+1), d_model.getDay());
@@ -111,6 +112,7 @@ public class MonthlyReportUI {
                 if(data2.length == 0){
                     DefaultTableModel dtm2 = new DefaultTableModel(null, columns);
                     jTable.setModel(dtm2);
+                    reportlb.setText("");
                     JOptionPane.showMessageDialog(frame, "No rooms booked in this hotel!");
                 }
                 else {
@@ -133,12 +135,14 @@ public class MonthlyReportUI {
                 count += 1;
                 FILE = "D:/Java/MonthlyReport" + count + ".pdf";
                 String result = reportlb.getText();
+                String a_date = model.getYear() + "-" + (model.getMonth() + 1) + "-" + model.getDay();
+                String d_date = d_model.getYear() + "-" + (d_model.getMonth() + 1) + "-" + d_model.getDay();
                 try {
                     Document doc = new Document();
                     PdfWriter.getInstance(doc, new FileOutputStream(FILE));
                     doc.open();
                     addMetaData(doc);
-                    createTable(doc, jTable, result);
+                    createTable(doc, jTable, result,a_date, d_date);
                     doc.close();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -195,16 +199,15 @@ public class MonthlyReportUI {
         document.addCreator("Lars Vogel");
     }
 
-    private static void createTable(Document document, JTable jTable, String res) throws DocumentException {
+    private static void createTable(Document document, JTable jTable, String res, String adate, String ddate) throws DocumentException {
         Anchor anchor = new Anchor("Monthly Report of Hotel ID : "+jTable.getValueAt(0, 1));
         anchor.setName("First Chapter");
 
         // Second parameter is the number of the chapter
         Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
-        LocalDate now = LocalDate.now();
-        Paragraph Para = new Paragraph(String.valueOf(now));
-
+        Paragraph Para = new Paragraph();
+        Para.add("The report is from "+adate+" till "+ddate);
 
         Paragraph nePara = new Paragraph();
         addEmptyLine(nePara, 3);

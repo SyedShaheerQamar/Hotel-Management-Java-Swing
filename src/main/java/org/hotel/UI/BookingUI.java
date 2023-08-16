@@ -27,13 +27,13 @@ public class BookingUI {
         tablePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 0));
 
         String[][] data = bookingService.getAllValuesOfBooking();
-        String[] columns = {"ID", "H_ID", "R_ID", "C_ID", "PRICE", "A_DATE", "D_DATE", "STATUS"};
+        String[] columns = {"ID", "HOTEL", "ROOM", "CUSTOMER", "PRICE", "A_DATE", "D_DATE", "STATUS"};
 
         DefaultTableModel dtm = new DefaultTableModel(data, columns);
 
         JTable jTable = new JTable(dtm);
         JScrollPane sp = new JScrollPane(jTable);
-        sp.setPreferredSize(new Dimension(550, 400));
+        sp.setPreferredSize(new Dimension(650, 400));
 
         tablePanel.add(sp);
 

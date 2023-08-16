@@ -12,6 +12,8 @@ import java.util.List;
 
 public class BookingService {
 
+    private final ReportService reportService = new ReportService();
+
     BookingDAO dao = new BookingDAO();
 
     public String[][] getAvailableRoom(Integer id, String a_date, String d_Date){
@@ -22,11 +24,13 @@ public class BookingService {
     }
 
     public String getTotalPrice(String adate, String ddate, Integer h_id){
-        List<Bill> bookingList = dao.getTotalPrice(h_id);
+        List<Bill> bookingList = dao.getTotalPrice(h_id, adate, ddate);
 
         Integer price = bookingList.get(0).getPrice();
+        HotelDAO hotelDAO  = new HotelDAO();
+        Hotel hotel = hotelDAO.getById(Long.valueOf(h_id));
 
-        return "The  total  bill  of  Hotel  ID  : "+h_id+"  is  "+price;
+        return "The  total  bill  of  Hotel   : "+hotel.getHotel_name()+"  is  "+price;
     }
 
     public String[][] MonthlyReportBooking(String adate, String ddate, Integer id){
@@ -75,17 +79,17 @@ public class BookingService {
 
     }
 
-    public void UpdateAllValuesOfBooking(Integer id,String hID, String rID, String cID, String price, String aDate, String dDate){
-        Booking booking = Booking.builder()
-                .hotel_id(Integer.valueOf(hID))
-                .room_id(Integer.valueOf(rID))
-                .customer_id(Integer.valueOf(cID))
-                .price(Integer.valueOf(price))
-                .arrival_date(aDate)
-                .departure_date(dDate)
-                .build();
+    public String[] checkAvailability(Integer id, String adate, String ddate){
+        RoomDAO roomDAO = new RoomDAO();
+        List<Room> roomList = roomDAO.roomAvailability(id, adate, ddate);
 
-        dao.updateAllValues(booking, id);
+        if(roomList.size() == 0){
+            String[] data = {"None"};
+            return data;
+        }
+        else {
+            return convertValuesToComboBoxRoom(roomList, 6);
+        }
     }
 
     public String[][] searchByNameInBooking(String name){
@@ -95,12 +99,15 @@ public class BookingService {
 
     }
 
-    public void insertIntoBooking(Integer hID, Integer rID, Integer cID, String price, String aDate, String dDate){
+    public void insertIntoBooking(Integer hID, Integer rID, Integer cID, String aDate, String dDate){
+        RoomDAO roomDAO = new RoomDAO();
+        Room room = roomDAO.getById(Long.valueOf(rID));
+
         Booking booking = Booking.builder()
                 .hotel_id(hID)
                 .room_id(rID)
                 .customer_id(cID)
-                .price(Integer.valueOf(price))
+                .price(room.getRoom_price())
                 .arrival_date(aDate)
                 .departure_date(dDate)
                 .booking_status("active")
@@ -129,22 +136,15 @@ public class BookingService {
         return convertValuesToComboBoxCustomer(customerList, 5);
     }
 
-    public String[] get_Values_Room(){
-        RoomDAO roomDAO = new RoomDAO();
-        List<Room> roomList = roomDAO.getAll();
-
-        return convertValuesToComboBoxRoom(roomList, 5);
-    }
-
     private String[][] convertValuesIntoJTable(List<Booking> bookingList, int columnSize) {
 
         String[][] data = new String[bookingList.size()][columnSize];
 
         for(int i=0; i<bookingList.size(); i++){
             data[i][0] = String.valueOf(bookingList.get(i).getId());
-            data[i][1] = String.valueOf(bookingList.get(i).getHotel_id());
-            data[i][2] = String.valueOf(bookingList.get(i).getRoom_id());
-            data[i][3] = String.valueOf(bookingList.get(i).getCustomer_id());
+            data[i][1] = reportService.getHotelName(bookingList.get(i).getHotel_id());
+            data[i][2] = reportService.getRoomName(bookingList.get(i).getRoom_id());
+            data[i][3] = reportService.getCustomerName(bookingList.get(i).getCustomer_id());
             data[i][4] = String.valueOf(bookingList.get(i).getPrice());
             data[i][5] = bookingList.get(i).getArrival_date();
             data[i][6] = bookingList.get(i).getDeparture_date();

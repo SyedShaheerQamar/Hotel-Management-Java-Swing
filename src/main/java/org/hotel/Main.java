@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        new MonthlyReportUI();
+        new AddBookingUI();
 
 //        HotelDAO hotelDAO = new HotelDAO();
 //        hotelDAO.getAll().forEach(System.out::println);

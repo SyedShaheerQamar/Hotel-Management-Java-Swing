@@ -148,13 +148,29 @@ public class BookingDAO extends BaseDAO implements iCrud<Booking>{
         }
     }
 
-    public List<Bill> getTotalPrice(Integer id){
+    public List<Bill> getTotalPrice(Integer id, String adate, String ddate){
         try{
-            PreparedStatement ps = conn.prepareStatement(GET_MONTHLY_PRICE);
-            ps.setInt(1, id);
+            PreparedStatement ps = conn.prepareStatement(
+                    "select sum(b.price*datediff(departure_date, arrival_date)) as total_bill from booking b where b.arrival_date between '"+adate+"' and '"+ddate+"' and b.departure_date between '"+adate+"' and '"+ddate+"' and h_id = "+id+";"
+            );
 
             ResultSet rs = ps.executeQuery();
             return bookingMapper.resultSetToInteger(rs);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Booking getAllNames(Integer hid, Integer cid, Integer rid){
+        try{
+            PreparedStatement ps = conn.prepareStatement(GET_ALL_NAMES);
+            ps.setInt(1, hid);
+            ps.setInt(2, cid);
+            ps.setInt(3, rid);
+
+            ResultSet rs = ps.executeQuery();
+            return bookingMapper.resultSetTObject(rs);
         }
         catch (SQLException e){
             throw new RuntimeException(e);

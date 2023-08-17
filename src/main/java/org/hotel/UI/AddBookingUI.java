@@ -211,7 +211,7 @@ public class AddBookingUI {
     }
 
     private static void addMetaData(Document document) {
-        document.addTitle("Monthly Report");
+        document.addTitle("Booking Voucher");
         document.addSubject("Using iText");
         document.addKeywords("Java, PDF, iText");
         document.addAuthor("Lars Vogel");

@@ -16,13 +16,6 @@ public class BookingService {
 
     BookingDAO dao = new BookingDAO();
 
-    public String[][] getAvailableRoom(Integer id, String a_date, String d_Date){
-        RoomDAO roomDAO = new RoomDAO();
-        List<Room> roomList = roomDAO.getAvailableRoom(id, a_date, d_Date);
-
-        return convertValuesIntoJTableForRoom(roomList, 6);
-    }
-
     public String getTotalPrice(String adate, String ddate, Integer h_id){
         List<Bill> bookingList = dao.getTotalPrice(h_id, adate, ddate);
 
@@ -149,22 +142,6 @@ public class BookingService {
             data[i][5] = bookingList.get(i).getArrival_date();
             data[i][6] = bookingList.get(i).getDeparture_date();
             data[i][7] = bookingList.get(i).getBooking_status();
-        }
-
-        return data;
-    }
-
-    private String[][] convertValuesIntoJTableForRoom(List<Room> roomList, int columnSize) {
-
-        String[][] data = new String[roomList.size()][columnSize];
-
-        for(int i=0; i<roomList.size(); i++){
-            data[i][0] = String.valueOf(roomList.get(i).getId());
-            data[i][1] = roomList.get(i).getRoom_floor();
-            data[i][2] = roomList.get(i).getCategory();
-            data[i][3] = roomList.get(i).getUrl();
-            data[i][4] = String.valueOf(roomList.get(i).getRoom_price());
-            data[i][5] = String.valueOf(roomList.get(i).getHotel_id());
         }
 
         return data;

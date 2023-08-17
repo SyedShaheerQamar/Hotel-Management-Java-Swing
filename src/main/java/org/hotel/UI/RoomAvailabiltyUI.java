@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.hotel.Service.BookingService;
+import org.hotel.Service.ReportService;
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -13,7 +14,6 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.print.Book;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,6 +25,8 @@ public class RoomAvailabiltyUI {
     private static Integer count = 0;
 
     private static String FILE = "D:/Java/RoomAvailable.pdf";
+
+    private final ReportService reportService = new ReportService();
 
     private final BookingService bookingService = new BookingService();
 
@@ -99,7 +101,7 @@ public class RoomAvailabiltyUI {
                 String a_date = model.getYear() + "-" + (model.getMonth() + 1) + "-" + model.getDay();
                 String d_date = d_model.getYear() + "-" + (d_model.getMonth() + 1) + "-" + d_model.getDay();
 
-                String[][] data2 = bookingService.getAvailableRoom(h_id, a_date, d_date);
+                String[][] data2 = reportService.getAvailableRoom(h_id, a_date, d_date);
                 if(data2.length == 0){
                     String[][] data3 = null;
                     DefaultTableModel dtm3 = new DefaultTableModel(data3, columns);

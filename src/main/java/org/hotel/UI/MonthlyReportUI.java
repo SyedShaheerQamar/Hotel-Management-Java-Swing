@@ -63,7 +63,7 @@ public class MonthlyReportUI {
         JLabel hotellb = new JLabel("HOTEL");
         hotellb.setBounds(230, 190,150,30);
 
-        String[] hotel = bookingService.get_Values_Hotel();
+        String[] hotel = bookingService.getValuesHotel();
         JComboBox hotelBox = new JComboBox(hotel);
         hotelBox.setBounds(350, 190,150,30);
 
@@ -200,7 +200,7 @@ public class MonthlyReportUI {
     }
 
     private static void createTable(Document document, JTable jTable, String res, String adate, String ddate) throws DocumentException {
-        Anchor anchor = new Anchor("Monthly Report of Hotel ID : "+jTable.getValueAt(0, 1));
+        Anchor anchor = new Anchor("Monthly Report of Hotel : "+jTable.getValueAt(0, 1));
         anchor.setName("First Chapter");
 
         // Second parameter is the number of the chapter

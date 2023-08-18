@@ -61,7 +61,7 @@ public class AddBookingUI {
         JLabel hotellb = new JLabel("HOTEL");
         hotellb.setBounds(170, 170,150,30);
 
-        String[] hotel = bookingService.get_Values_Hotel();
+        String[] hotel = bookingService.getValuesHotel();
         JComboBox hotelBox = new JComboBox(hotel);
         hotelBox.setBounds(250, 170,150,30);
 
@@ -78,7 +78,7 @@ public class AddBookingUI {
         JLabel cuslb = new JLabel("CUSTOMER");
         cuslb.setBounds(170, 380,150,30);
 
-        String[] customer = bookingService.get_Values_Customer();
+        String[] customer = bookingService.getValuesCustomer();
         JComboBox customerBox = new JComboBox(customer);
         customerBox.setBounds(250, 380,150,30);
 

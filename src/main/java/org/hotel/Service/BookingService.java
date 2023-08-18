@@ -6,7 +6,10 @@ import org.hotel.DAO.HotelDAO;
 import org.hotel.DAO.RoomDAO;
 import org.hotel.Domain.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +44,6 @@ public class BookingService {
         LocalDate now = LocalDate.now();
 
         booking.setBooking_status("complete");
-        booking.setDeparture_date(String.valueOf(now));
         dao.updateAllValues(booking, id);
         return Boolean.FALSE;
     }
@@ -55,7 +57,6 @@ public class BookingService {
         LocalDate now = LocalDate.now();
 
         booking.setBooking_status("inactive");
-        booking.setDeparture_date(String.valueOf(now));
         dao.updateAllValues(booking, id);
         return Boolean.FALSE;
     }
@@ -115,23 +116,25 @@ public class BookingService {
         return convertValuesIntoJTable(bookingList, 8);
     }
 
-    public String[] get_Values_Hotel(){
+    public String[] getValuesHotel(){
         HotelDAO hotelDAO = new HotelDAO();
         List<Hotel> hotelList = hotelDAO.getAll();
 
         return convertValuesToComboBoxHotel(hotelList, 5);
     }
 
-    public String[] get_Values_Customer(){
+    public String[] getValuesCustomer(){
         CustomerDAO customerDAO = new CustomerDAO();
         List<Customer> customerList = customerDAO.getAll();
 
         return convertValuesToComboBoxCustomer(customerList, 5);
     }
 
-    private String[][] convertValuesIntoJTable(List<Booking> bookingList, int columnSize) {
+    private String[][] convertValuesIntoJTable(List<Booking> bookingList, int columnSize){
 
         String[][] data = new String[bookingList.size()][columnSize];
+
+        LocalDate now = LocalDate.now();
 
         for(int i=0; i<bookingList.size(); i++){
             data[i][0] = String.valueOf(bookingList.get(i).getId());
@@ -141,7 +144,19 @@ public class BookingService {
             data[i][4] = String.valueOf(bookingList.get(i).getPrice());
             data[i][5] = bookingList.get(i).getArrival_date();
             data[i][6] = bookingList.get(i).getDeparture_date();
-            data[i][7] = bookingList.get(i).getBooking_status();
+            String dateValue = data[i][6];
+            String[] date = dateValue.split("-");
+            Integer year = Integer.valueOf(date[0]);
+            Integer month = Integer.valueOf(date[1]);
+            Integer day = Integer.valueOf(date[2]);
+            LocalDate depDate = LocalDate.of(year, month, day);
+
+            if(depDate.isBefore(now)){
+                data[i][7] = "complete";
+            }
+            else {
+                data[i][7] = bookingList.get(i).getBooking_status();
+            }
         }
 
         return data;

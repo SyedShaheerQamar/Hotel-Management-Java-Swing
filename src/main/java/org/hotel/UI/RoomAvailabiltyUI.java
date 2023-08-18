@@ -63,7 +63,7 @@ public class RoomAvailabiltyUI {
         JLabel hotellb = new JLabel("HOTEL");
         hotellb.setBounds(230, 190,150,30);
 
-        String[] hotel = bookingService.get_Values_Hotel();
+        String[] hotel = bookingService.getValuesHotel();
         JComboBox hotelBox = new JComboBox(hotel);
         hotelBox.setBounds(350, 190,150,30);
 

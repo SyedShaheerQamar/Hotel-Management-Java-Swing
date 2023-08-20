@@ -198,6 +198,18 @@ public class BookingService {
             value[i] = data[i][0] + ",  "+ data[i][1] +",  "+ data[i][2];
         }
 
+//        String[] test = new String[roomList.size()];
+//
+//        int count  = 0;
+//        for(Room r : roomList){
+//            test[count] = String.valueOf(r.getId()+", "+r.getCategory());
+//            count++;
+//        }
+//
+//        for (int i=0; i<test.length; i++){
+//            System.out.println(test[i]);
+//        }
+
         return value;
 
     }

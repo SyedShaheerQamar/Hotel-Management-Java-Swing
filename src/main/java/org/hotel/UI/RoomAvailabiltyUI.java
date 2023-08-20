@@ -89,7 +89,8 @@ public class RoomAvailabiltyUI {
 
         generateBtn.addActionListener(b->{
             String h = (String) hotelBox.getSelectedItem();
-            Integer h_id = Character.getNumericValue(h.charAt(0));
+            String[] h_value = h.split(",");
+            Integer h_id = Integer.valueOf(h_value[0]);
 
             LocalDate arr_date = LocalDate.of(model.getYear(), (model.getMonth()+1), model.getDay());
             LocalDate dep_date = LocalDate.of(d_model.getYear(), (d_model.getMonth()+1), d_model.getDay());

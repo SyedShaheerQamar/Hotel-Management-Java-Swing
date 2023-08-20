@@ -123,7 +123,7 @@ public class RoomDAO extends BaseDAO implements iCrud<Room>{
     public List<Room> getAvailableRoom(Integer id, String adate, String ddate){
         try{
             PreparedStatement ps = conn.prepareStatement(
-                    "select * from room where h_id = "+id+" and id not in (select b.r_id from room r inner join booking b on r.id = b.r_id where arrival_date between '"+adate+"' and '"+ddate+"');"
+                    "select * from room r where r.h_id = "+id+" and r.id not in (select b.r_id from booking b where b.arrival_date between '"+adate+"' and '"+ddate+"' or b.departure_date between '"+adate+"' and '"+ddate+"');"
             );
 
             ResultSet rs = ps.executeQuery();

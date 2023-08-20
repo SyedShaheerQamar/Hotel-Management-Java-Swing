@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class BookingService {
 
     public String[][] MonthlyReportBooking(String adate, String ddate, Integer id){
         List<Booking> bookingList = dao.getMonthlyReportBooking(adate, ddate, id);
+//        bookingList.forEach(System.out::println);
 
         return convertValuesIntoJTable(bookingList, 8);
     }
@@ -143,14 +145,19 @@ public class BookingService {
             data[i][3] = reportService.getCustomerName(bookingList.get(i).getCustomer_id());
             data[i][4] = String.valueOf(bookingList.get(i).getPrice());
             data[i][5] = bookingList.get(i).getArrival_date();
+            String adateValue = data[i][5];
+            String[] adate = adateValue.split("-");
+            Integer year = Integer.valueOf(adate[0]);
+            Integer month = Integer.valueOf(adate[1]);
+            Integer day = Integer.valueOf(adate[2]);
+            LocalDate arrDate = LocalDate.of(year, month, day);
             data[i][6] = bookingList.get(i).getDeparture_date();
             String dateValue = data[i][6];
             String[] date = dateValue.split("-");
-            Integer year = Integer.valueOf(date[0]);
-            Integer month = Integer.valueOf(date[1]);
-            Integer day = Integer.valueOf(date[2]);
-            LocalDate depDate = LocalDate.of(year, month, day);
-
+            Integer dyear = Integer.valueOf(date[0]);
+            Integer dmonth = Integer.valueOf(date[1]);
+            Integer dday = Integer.valueOf(date[2]);
+            LocalDate depDate = LocalDate.of(dyear, dmonth, dday);
             if(depDate.isBefore(now)){
                 data[i][7] = "complete";
             }

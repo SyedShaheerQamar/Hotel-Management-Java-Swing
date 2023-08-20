@@ -138,7 +138,9 @@ public class BookingDAO extends BaseDAO implements iCrud<Booking>{
 
     public List<Booking> getMonthlyReportBooking(String adate, String ddate, Integer id){
         try{
-            PreparedStatement ps = conn.prepareStatement("select * from booking where arrival_date between '"+adate+"' and '"+ddate+"' and h_id = "+id+";");
+            PreparedStatement ps = conn.prepareStatement(
+                    "select * from booking where arrival_date between '"+adate+"' and '"+ddate+"' and h_id = "+id+";"
+            );
 
             ResultSet rs = ps.executeQuery();
             return bookingMapper.resultSetToList(rs);
